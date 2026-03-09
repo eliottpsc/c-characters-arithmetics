@@ -6,12 +6,11 @@
 /*   By: eruffin <eruffin@learner.42.tech>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 15:39:20 by eruffin           #+#    #+#             */
-/*   Updated: 2026/03/05 18:18:07 by eruffin          ###   ########.fr       */
+/*   Updated: 2026/03/09 13:02:31 by eruffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#define MAX 100
 
 void	ft_print_comb2(void);
 void	ft_putnbr(int n);
@@ -40,7 +39,8 @@ void	ft_print_comb2(void)
 		}
 		pair1++;
 	}
-	write(1, "\n", 1);
+	if (pair1 < 98)
+		write(1, "\n", 1);
 }
 
 void	ft_putnbr(int nb)
