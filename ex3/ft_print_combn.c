@@ -5,78 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eruffin <eruffin@learner.42.tech>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/07 10:10:24 by eruffin           #+#    #+#             */
-/*   Updated: 2026/03/07 17:52:12 by eruffin          ###   ########.fr       */
+/*   Created: 2026/03/08 20:11:14 by eruffin           #+#    #+#             */
+/*   Updated: 2026/03/09 13:07:09 by eruffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdio.h>
 
-void	ft_print_combn(int n);
-void	ft_init_array(int arr[9], int n);
-void	ft_print_array(int arr[9], int n);
-
-void	ft_print_combn(int n)
+void	ft_print_array(int *arr, int n)
 {
-	int	ind;
-	int	arr[9];
+	int	iter;
+	int	c;
 
-	ft_init_array(arr, n);
-	ind = n - 1;
-
-	while (true)
+	iter = 0;
+	while (iter < n)
 	{
-		if (arr[ind] == (9 - n + 1 + ind))
-		{
-			ind--;
-			if (ind == -1)	// we reached biggest value
-				return ;
-			if (arr[ind] == (9 - n + 1 + ind))
-				continue;
-			arr[ind] = arr[ind] + 1;
-			//arr[ind] + 1;
-			ind++;
-			arr[ind] = arr[ind-1] + 1;
-			ft_print_array(arr, n);
-		}
-		else
-		{
-			arr[ind]++;
-			ft_print_array(arr, n);
-		}
+		c = arr[iter] + '0';
+		write(1, &c, 1);
+		iter++;
 	}
+	if (arr[0] >= (10 - n + 0))
+	{
+		return ;
+	}
+	write(1, ", ", 2);
 }
 
-void	ft_print_array(int arr[9], int n)
+void	ft_init_array(int *arr, int n)
 {
-	int	i = 0;
+	int	i;
 
-	while (i < n)
-	{
-		printf("%d", arr[i]);
-		i++;
-	}
-	printf(", ");
-}
-
-void	ft_init_array(int arr[9], int n)
-{
-	int	i = 0;
+	i = 0;
 	while (i < n)
 	{
 		arr[i] = i;
 		i++;
 	}
-	ft_print_array(arr, n);
 }
 
+void	ft_print_combn(int n)
+{
+	int	arr[9];
+	int	i;
+
+	i = 0;
+	arr[0] = 0;
+	while (i > -1)
+	{
+		while (i < n - 1)
+		{
+			i++;
+			arr[i] = arr[i - 1] + 1;
+		}
+		while (arr[i] <= (10 - n + i))
+		{
+			ft_print_array(arr, n);
+			arr[i]++;
+		}
+		if (arr[0] >= (10 - n + i))
+			break ;
+		while (arr[i] >= (10 - n + i))
+			i--;
+		arr[i]++;
+	}
+}
+/*
 int	main(void)
 {
-	//int	myarr[9];
-	//int	n = 6;
-	
-	//ft_init_array(myarr, n);
-	//ft_print_array(myarr, n);
 	ft_print_combn(4);
+	return (0);
 }
+*/
